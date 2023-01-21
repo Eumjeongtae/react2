@@ -2,7 +2,22 @@
   text-align: center;
 }
 
+.start {
+  opacity : 0;
+  transform: translateX(-50px);
+}
+.end {
+  opacity : 1;
+  transform: translateX(0px);
 
+  transition : all 0.5s;
+}
+.uprise{
+  opacity : 1;
+  transform: translateX(0px);
+
+  transition : all 0.5s;
+}
 .main-bg {
   height : 300px;
   background-image : url('./img/bg.png');

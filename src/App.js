@@ -7,10 +7,12 @@ import { Navbar, Container, Nav} from 'react-bootstrap'
 import { Route,Routes,Link , useNavigate, Outlet } from 'react-router-dom'; 
 import Detail from './routes/Detail';
 import Event from './routes/Event';
+import axios from 'axios';
 function App() {
 
-  let [shoes] = useState(data);
+  let [shoes,setShoes] = useState(data);
   let navigate = useNavigate();
+  let [num,setNum] = useState(2);
   return (
     <div className="App">
      
@@ -20,7 +22,7 @@ function App() {
         <Navbar.Brand  onClick={()=>{navigate('/')}}>Shoeshop</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link>
+          <Nav.Link onClick={()=>{navigate('/detail/0')}}>Detail</Nav.Link>
         </Nav>
         </Container>
       </Navbar>
@@ -31,6 +33,19 @@ function App() {
           <div className="container">
                 <Modal shoes={shoes}/>
         </div> 
+        <button onClick={()=>{
+          axios.get(`https://codingapple1.github.io/shop/data${num}.json`)
+          .then((result)=>{
+            let more =[...shoes]
+            more.push(...result.data);
+            setShoes(more)
+            
+          })
+          setNum(num+1)
+          if(num > 3){
+            alert('더이상 없어요')
+          }
+        }}>버튼</button>
         </>
         }/>
         <Route path='/detail/:id' element={<Detail shoes={shoes} />}/>

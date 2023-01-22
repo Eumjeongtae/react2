@@ -1,5 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState,useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom'; 
+import {add} from "./../store.js"
 import {Nav} from 'react-bootstrap'
 
 import styled from "styled-components";
@@ -12,6 +15,9 @@ function Detail(props){
     return x.id == id
   });
 
+  let state = useSelector((state)=>{return state;})
+  let dispatch = useDispatch()
+  let navigate = useNavigate();
 
   useEffect(()=>{
     setTimeout(()=>{ setUp('uprise') }, 100)
@@ -30,7 +36,10 @@ function Detail(props){
       <h4 className="pt-5">{찾은상품.title}</h4>
       <p>{찾은상품.content}</p>
       <p>{찾은상품.price}</p>
-      <button className="btn btn-danger">주문하기</button> 
+      <button className="btn btn-danger" onClick={()=>{
+         dispatch(add(찾은상품))
+        navigate('/cart')
+      }}>주문하기</button> 
     </div>
   </div>
 
